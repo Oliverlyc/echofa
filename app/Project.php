@@ -28,8 +28,9 @@ class Project extends Model
             $projectNameList[$item->ID] =  [
                 'hid' => $item->ID,
                 'ProjectName' => $item->ProjectsName,
-                'BeginDatetime' => Carbon::parse($item->BeginDatetime)->format('Y-m-d'),
-                'EndDatetime' => Carbon::parse($item->EndDatetime)->format('Y-m-d'),
+                'BeginDatetime' => $item->BeginDatetime,
+                'EndDatetime' => $item->EndDatetime,
+//                'EndDatetime' => (Carbon::createFromTimestampMs($item->EndDatetime.'.0000','Asia/Shanghai')->toTimeString()),
                 'process' => [],
             ];
         }
@@ -50,12 +51,13 @@ class Project extends Model
     public function getProjectProcessList($hid = null)
     {
         if(!$hid){
-            return  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime','Amount')->whereNotNull('ModifyDatetime')->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
+            return  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime', 'Amount', 'Nextsort')->whereNotNull('ModifyDatetime')->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
                 return [
                     'hid' => $item->hid,
                     'sort' => $item->sort,
-                    'processStartTime' => Carbon::parse($item->ModifyDatetime)->format('Y-m-d'),
+                    'processStartTime' =>  strtotime($item->ModifyDatetime),
                     'cost' => $item->Amount,
+                    'nextSort' =>  $item->Nextsort
                 ];
             });
         }else{
@@ -63,7 +65,7 @@ class Project extends Model
                 return [
                     'hid' => $item->hid,
                     'sort' => $item->sort,
-                    'processStartTime' => Carbon::parse($item->ModifyDatetime)->format('Y-m-d'),
+                    'processStartTime' => strtotime($item->ModifyDatetime),
                     'cost' => $item->Amount,
                 ];
             });

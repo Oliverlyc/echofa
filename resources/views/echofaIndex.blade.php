@@ -1,11 +1,18 @@
 @extends('layouts.echofa')
 
 @section('content')
+    <head>
+        <style>
+            .panel{
+                /*opacity:0.0;*/
+            }
+        </style>
+    </head>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{__('登录')}}</div>
+                    <div class="panel-heading">{{__('功能')}}</div>
 
                     <div class="panel-body">
                         <div class="row col-md-8 col-md-offset-2">

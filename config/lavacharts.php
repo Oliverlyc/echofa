@@ -32,7 +32,7 @@ return [
     | this language.
     |
     */
-    'locale' => 'zh',
+    'locale' => 'en',
 
 
     /*
