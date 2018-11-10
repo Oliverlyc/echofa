@@ -160,7 +160,7 @@ class ProjectProcessController extends Controller
                         if(($nextProcessStartTime - $processStartTime)/86400 <1){
                             $processEndTime = $processStartTime;
                         }else{
-                            $processEndTime = $nextProcessStartTime;
+                            $processEndTime = $nextProcessStartTime-86400;
 
                         }
                     }
