@@ -60,10 +60,11 @@
     display: inline-block;
     margin: 0 0 0 5px;
     color: #484A4D;
-    width: 110px;
+    width: 120px;
+    /*width: 110px;*/
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .fn-gantt .leftPanel .row {
@@ -101,10 +102,10 @@
 .fn-gantt .dataPanel {
     margin-left: 0;
     outline: 1px solid #DDD;
-    /* TODO: Replace image with gradient?
-    background-size: 24px 24px;
-    background-image: linear-gradient(to left, rgba(221, 221, 221, 0.7) 1px, transparent 1px), linear-gradient(to top, rgba(221, 221, 221, 0.7) 1px, transparent 1px);
-    */
+    /*!* TODO: Replace image with gradient?*/
+    /*background-size: 24px 24px;*/
+    /*background-image: linear-gradient(to left, rgba(221, 221, 221, 0.7) 1px, transparent 1px), linear-gradient(to top, rgba(221, 221, 221, 0.7) 1px, transparent 1px);*/
+    /**!*/
     background-image: url(../img/grid.png);
     background-repeat: repeat;
     position: relative;
@@ -117,7 +118,7 @@
 
 .fn-gantt .day, .fn-gantt .date {
     overflow: visible;
-    width: 24px;
+    width: 48px;
     line-height: 24px;
     text-align: center;
     border-right: 1px solid #DDD;

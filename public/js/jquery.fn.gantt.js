@@ -357,7 +357,7 @@
 
             // Create and return the data panel element
             dataPanel: function (element, width) {
-                var dataPanel = $('<div class="dataPanel" style="width: ' + width + 'px;"/>');
+                var dataPanel = $('<div class="dataPanel" style="width: ' + width*2+ 'px;"/>');
 
                 // Handle mousewheel events for scrolling the data panel
                 var wheel = 'onwheel' in element ?
@@ -719,7 +719,7 @@
                             if (rday.getFullYear() !== year) {
                                 yearArr.push(
                                     '<div class="row year" style="width:' +
-                                    tools.getCellSize() * scaleUnitsThisYear +
+                                    tools.getCellSize() * scaleUnitsThisYear *2 +
                                     'px;"><div class="fn-label">' +
                                     year +
                                     '</div></div>');
@@ -732,7 +732,7 @@
                             if (rday.getMonth() !== month) {
                                 monthArr.push(
                                     '<div class="row month" style="width:' +
-                                    tools.getCellSize() * scaleUnitsThisMonth +
+                                    tools.getCellSize() * scaleUnitsThisMonth*2 +
                                     'px;"><div class="fn-label">' +
                                     settings.months[month] +
                                     '</div></div>');
@@ -763,14 +763,14 @@
                         // Last year
                         yearArr.push(
                             '<div class="row year" style="width: ' +
-                            tools.getCellSize() * scaleUnitsThisYear + 'px;"><div class="fn-label">' +
+                            tools.getCellSize() * scaleUnitsThisYear *2+ 'px;"><div class="fn-label">' +
                             year +
                             '</div></div>');
 
                         // Last month
                         monthArr.push(
                             '<div class="row month" style="width: ' +
-                            tools.getCellSize() * scaleUnitsThisMonth + 'px"><div class="fn-label">' +
+                            tools.getCellSize() * scaleUnitsThisMonth *2+ 'px"><div class="fn-label">' +
                             settings.months[month] +
                             '</div></div>');
 
@@ -1142,9 +1142,9 @@
                                     dFrom = tools.genId(tools.dateDeserialize(day.from));
                                     dTo = tools.genId(tools.dateDeserialize(day.to));
                                     from = $(element).find("#dh-" + dFrom);
-                                    cFrom = from.data("offset");
+                                    cFrom = from.data("offset")*2;
                                     dl = Math.floor((dTo - dFrom) / UTC_DAY_IN_MS) + 1;
-                                    dp = 100 * (cellWidth * dl - 1) / dataPanelWidth;
+                                    dp = 2*100 * (cellWidth * dl - 1.5) / dataPanelWidth;
 
                                     _bar = core.createProgressBar(day.label, day.desc, day.customClass, day.dataObj);
 

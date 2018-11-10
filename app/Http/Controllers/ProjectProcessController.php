@@ -153,13 +153,21 @@ class ProjectProcessController extends Controller
                     $nextProcessStartTime = next($project['process'])['processStartTime'];
                     $processStartTime = $process['processStartTime'];
                     $processEndTime = &$projectList[$hid]['process'][$sort]['processEndTime'];
+
                     if ($nextProcessStartTime == time()){
                         $processEndTime = time();
                     }else{
-                        $processEndTime = $nextProcessStartTime;
+                        if(($nextProcessStartTime - $processStartTime)/86400 <1){
+                            $processEndTime = $processStartTime;
+                        }else{
+                            $processEndTime = $nextProcessStartTime;
+
+                        }
                     }
                 }
-                $projectList[$hid]['process'][$endSort]['processEndTime'] = time();
+                $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("-1 day");
+
+
             }
 
             if ($nextSort) {
@@ -169,26 +177,37 @@ class ProjectProcessController extends Controller
                 $projectList[$hid]['nextProcess']['hid'] = $hid;
             }
         }
+//        dd($projectList);
         return $projectList;
 
     }
 
     public function format($projectList)
     {
+        $color = [
+            true => 'ganttRed',
+            false => null
+        ];
         $str = "[";
         foreach ($projectList as $hid => $project){
+            $i = 0;
+//            $str .= "{name:'"
+//                .'<a href='.'"./project_cost/'.$project['hid'].'"'.'>'.$project['ProjectName'].'</a>'.
+//                "',desc:'".Carbon::parse($project['EndDatetime'])->format('Y-m-d').
+//                "',values:[{from:".strtotime($project['BeginDatetime']).'000'.
+//                ",to:".strtotime($project['EndDatetime']).'000'.
+//                ",label:'".$project['ProjectName'].
+//                "',customClass:'ganttRed'},";
             $str .= "{name:'"
                 .'<a href='.'"./project_cost/'.$project['hid'].'"'.'>'.$project['ProjectName'].'</a>'.
                 "',desc:'".Carbon::parse($project['EndDatetime'])->format('Y-m-d').
-                "',values:[{from:".strtotime($project['BeginDatetime']).'000'.
-                ",to:".strtotime($project['EndDatetime']).'000'.
-                ",label:'".$project['ProjectName'].
-                "',customClass:'ganttRed'},";
+                "',values:[";
             foreach ($project['process'] as $sort => $process){
                 $str .= "{from:".$process['processStartTime'].'000'.
                     ",to:".$process['processEndTime'].'000'.
                     ",label:'".$process['flowname'].
-                    "',customClass: 'ganttBlue'},";
+                    "',customClass: '".$color[$i%2]."'},";
+                $i++;
             }
             if($project['nextProcess']){
                 $str .= "{from:".$project['nextProcess']['processStartTime'].'000'.
