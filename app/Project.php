@@ -19,9 +19,9 @@ class Project extends Model
     {
         $projectNameList = [];
         if($hid){
-            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime')->where('ID',$hid)->get();
+            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime','finishFly')->where('ID',$hid)->get();
         }else{
-            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime')->orderBy('BeginDatetime','desc')->get();
+            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime', 'finishFly')->orderBy('BeginDatetime','desc')->get();
 
         }
         foreach ($projectNameListByDB as $item){
@@ -30,6 +30,7 @@ class Project extends Model
                 'ProjectName' => $item->ProjectsName,
                 'BeginDatetime' => $item->BeginDatetime,
                 'EndDatetime' => $item->EndDatetime,
+                'finish' => $item->finishFly,
 //                'EndDatetime' => (Carbon::createFromTimestampMs($item->EndDatetime.'.0000','Asia/Shanghai')->toTimeString()),
                 'process' => [],
             ];

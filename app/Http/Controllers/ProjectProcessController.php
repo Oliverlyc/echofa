@@ -165,15 +165,19 @@ class ProjectProcessController extends Controller
                         }
                     }
                 }
-                $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("-1 day");
+                if($project['finish'] == 1 ){
+                    $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+2 day",$project['process'][$endSort]['processStartTime']);
+                }else{
+                    $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("-1 day");
+                }
 
 
             }
 
-            if ($nextSort) {
+            if ($nextSort && $project['finish'] != 1) {
                 $projectList[$hid]['nextProcess'] = $processNameList[$nextSort];
                 $projectList[$hid]['nextProcess']['processStartTime'] = time();
-                $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+2 day");
+                $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+1 day");
                 $projectList[$hid]['nextProcess']['hid'] = $hid;
             }
         }
