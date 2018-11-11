@@ -143,6 +143,7 @@ class ProjectProcessController extends Controller
         foreach($projectList as $hid=>$project) {
             $endSort = 0;
             $tmpProcess = $processNameList;
+            $nextSort = null;
             $projectList[$hid]['nextProcess'] = [];
             if ($project['process'] != null) {
                 $endProcess = array_last($project['process']);
@@ -174,14 +175,14 @@ class ProjectProcessController extends Controller
 
             }
 
-            if ($nextSort && $project['finish'] != 1) {
+            if ($nextSort  && $project['finish'] != 1) {
                 $projectList[$hid]['nextProcess'] = $processNameList[$nextSort];
                 $projectList[$hid]['nextProcess']['processStartTime'] = time();
                 $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+1 day");
                 $projectList[$hid]['nextProcess']['hid'] = $hid;
             }
         }
-//        dd($projectList);
+        dd($projectList);
         return $projectList;
 
     }
