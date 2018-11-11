@@ -25,7 +25,7 @@
                 minScale: "weeks",
                 months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
                 dow: ['日', '一', '二', '三', '四', '五', '六'],
-                itemsPerPage: 20,
+                itemsPerPage: 29,
                 scrollToToday: true,
                 useCookie: false,
                 waitText: "正在加载图表......",
