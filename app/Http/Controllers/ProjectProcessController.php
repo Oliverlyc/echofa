@@ -182,7 +182,7 @@ class ProjectProcessController extends Controller
                 $projectList[$hid]['nextProcess']['hid'] = $hid;
             }
         }
-        dd($projectList);
+//        dd($projectList);
         return $projectList;
 
     }
