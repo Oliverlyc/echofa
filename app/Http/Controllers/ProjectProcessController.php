@@ -134,11 +134,11 @@ class ProjectProcessController extends Controller
         $processCount = count($processNameList);
         //项目进度列表
         $projectProcessList = $project->getProjectProcessList();
-
         foreach ($projectProcessList as $process){
             $process['flowname'] = $processNameList[$process['sort']]['flowname'];
             $projectList[$process['hid']]['process'][$process['sort']] = $process;
         }
+//        dd($projectList[29]['finish']);
 
         foreach($projectList as $hid=>$project) {
             $endSort = 0;

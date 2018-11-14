@@ -19,9 +19,9 @@ class Project extends Model
     {
         $projectNameList = [];
         if($hid){
-            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime','finishFly')->where('ID',$hid)->get();
+            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime','FinishFly')->where('ID',$hid)->get();
         }else{
-            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime', 'finishFly')->orderBy('BeginDatetime','desc')->get();
+            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime', 'FinishFly')->orderBy('BeginDatetime','desc')->get();
 
         }
         foreach ($projectNameListByDB as $item){
@@ -30,7 +30,7 @@ class Project extends Model
                 'ProjectName' => $item->ProjectsName,
                 'BeginDatetime' => $item->BeginDatetime,
                 'EndDatetime' => $item->EndDatetime,
-                'finish' => $item->finishFly,
+                'finish' => $item->FinishFly ==null ? 0:$item->FinishFly,
 //                'EndDatetime' => (Carbon::createFromTimestampMs($item->EndDatetime.'.0000','Asia/Shanghai')->toTimeString()),
                 'process' => [],
             ];
@@ -40,13 +40,18 @@ class Project extends Model
 
     public function getProcessNameList()
     {
+        $processes = [];
         //进度列表
-        return DB::table('m_projects_d')->select('sort','flowname')->groupBy('sort','flowname')->get()->map(function($item){
+        $arr = DB::table('m_projects_d')->select('sort','flowname')->groupBy('sort','flowname')->get()->map(function($item){
             return [
                 'sort' => $item->sort,
                 'flowname' => $item->flowname
             ];
         });
+        foreach ($arr as $process){
+            $processes = array_add($processes,$process['sort'],$process);
+        }
+        return $processes;
     }
 
     public function getProjectProcessList($hid = null)
