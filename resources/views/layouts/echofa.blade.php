@@ -25,7 +25,7 @@
 </head>
 <body >
 <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top" style="margin:0px;">
         <div class="container">
             <div class="navbar-header">
 
@@ -41,12 +41,16 @@
                 <a class="navbar-brand" href="{{ route('index') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
+                {{--<ul class="nav navbar-nav">--}}
+
+                {{--</ul>--}}
+                <ul class="nav navbar-nav ">
+                        @yield('ganttBtn')
                 </ul>
 
                 <!-- Right Side Of Navbar -->

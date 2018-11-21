@@ -125,15 +125,20 @@ class ProjectProcessController extends Controller
 //        return $projectList;
 //
 //    }
-    public function getProjectList(Project $project)
+    public $type = [
+        'processing' => 0,
+        'finish' => 1
+    ];
+
+    public function getProjectList($project, $type)
     {
         $projectProcess = [];
         //项目列表
-        $projectList = $project->getProjectNameList();
+        $projectList = $project->getProjectNameList($this->type[$type]);
         $processNameList = $project->getProcessNameList();
         $processCount = count($processNameList);
         //项目进度列表
-        $projectProcessList = $project->getProjectProcessList();
+        $projectProcessList = $project->getProjectProcessList($this->type[$type]);
         foreach ($projectProcessList as $process){
             $process['flowname'] = $processNameList[$process['sort']]['flowname'];
             $projectList[$process['hid']]['process'][$process['sort']] = $process;
@@ -142,7 +147,6 @@ class ProjectProcessController extends Controller
 
         foreach($projectList as $hid=>$project) {
             $endSort = 0;
-            $tmpProcess = $processNameList;
             $nextSort = null;
             $projectList[$hid]['nextProcess'] = [];
             if ($project['process'] != null) {
@@ -168,19 +172,20 @@ class ProjectProcessController extends Controller
                 }
                 if($project['finish'] == 1 ){
                     $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+2 day",$project['process'][$endSort]['processStartTime']);
-                }else{
+                }elseif ($nextSort  && $project['finish'] != 1) {
                     $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("-1 day");
+                    $projectList[$hid]['nextProcess'] = $processNameList[$nextSort];
+                    $projectList[$hid]['nextProcess']['processStartTime'] = time();
+                    $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+".$endProcess["nextSortDays"]." day");
+                    $projectList[$hid]['nextProcess']['hid'] = $hid;
+                }else{
+                    $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+2 day",$project['process'][$endSort]['processStartTime']);
                 }
 
 
             }
 
-            if ($nextSort  && $project['finish'] != 1) {
-                $projectList[$hid]['nextProcess'] = $processNameList[$nextSort];
-                $projectList[$hid]['nextProcess']['processStartTime'] = time();
-                $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+1 day");
-                $projectList[$hid]['nextProcess']['hid'] = $hid;
-            }
+
         }
 //        dd($projectList);
         return $projectList;
@@ -196,13 +201,6 @@ class ProjectProcessController extends Controller
         $str = "[";
         foreach ($projectList as $hid => $project){
             $i = 0;
-//            $str .= "{name:'"
-//                .'<a href='.'"./project_cost/'.$project['hid'].'"'.'>'.$project['ProjectName'].'</a>'.
-//                "',desc:'".Carbon::parse($project['EndDatetime'])->format('Y-m-d').
-//                "',values:[{from:".strtotime($project['BeginDatetime']).'000'.
-//                ",to:".strtotime($project['EndDatetime']).'000'.
-//                ",label:'".$project['ProjectName'].
-//                "',customClass:'ganttRed'},";
             $str .= "{name:'"
                 .'<a href='.'"./project_cost/'.$project['hid'].'"'.'>'.$project['ProjectName'].'</a>'.
                 "',desc:'".Carbon::parse($project['EndDatetime'])->format('Y-m-d').
@@ -225,51 +223,12 @@ class ProjectProcessController extends Controller
         $str .= "]";
         return $str;
     }
-    public function getGanttChart(Project $project)
+    public function getGanttChart(Project $project ,Request $request)
     {
-
-        $projectList = $this->getProjectList($project);
+        $type= $request->query('type') ?? 'processing';
+        $projectList = $this->getProjectList($project, $type);
         $projectList = $this->format($projectList);
 //        dd($projectList);
         return view('echofa.projectProcess',['projectList' => $projectList]);
     }
-//    public function getGanttChart(Project $project)
-//    {
-//        $projectList = $this->getProjectList($project);
-//        foreach ($projectList as $hid => $project)
-//        {
-//            if($project['process']) {
-//
-//                $table = \Lava::DataTable();
-//                $format = \Lava::DateFormat([
-//                    'formatType' => 'short',
-//                    'pattern' => 'Y,m,d',
-//                    'timezone' => 'Asia/Shanghai'
-//                ]);
-//                $table->addStringColumn('Task ID')
-//                    ->addStringColumn('Task Name')
-//                    ->addStringcolumn('Resource')
-//                    ->addDateColumn('Start Date',$format)
-//                    ->addDateColumn('End Date')
-//                    ->addNumberColumn('Duration')
-//                    ->addNumberColumn('Percent Complete')
-//                    ->addStringColumn('Dependencies')
-//                    ;
-//                foreach ($project['process'] as $item) {
-//                    $table->addRow([$item['sort'], $item['flowname'], null, $item['processStartTime'], $item['processEndTime'], null,100]);
-//                }
-//                if ($project['nextProcess']) {
-//                    $table->addRow([$project['nextProcess']['sort'], $project['nextProcess']['flowname'], 'future', $project['nextProcess']['processStartTime'], $project['nextProcess']['processEndTime'], null,100]);
-//                }
-//
-//                \Lava::GanttChart('Gantt' . $hid, $table, [
-//                    'height' => (count($project['process']) + 1) * 36 + 50,
-//                    'gantt' => ['barHeight' => 19,'labelStyle' =>['fontSize' => 18]],
-//                ]);
-//            }
-//        }
-//
-//        return view('echofa.projectProcess',['projectList' => $projectList]);
-//
-//    }
 }

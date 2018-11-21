@@ -1,7 +1,11 @@
+@inject('request','Illuminate\Http\Request')
 @extends('layouts.echofa')
+@section('ganttBtn')
+    <a href="{{ route('showProjectProcessChart') }}" type="button " @if(!$request->query('type')||$request->query('type') == 'processing') class="btn btn-default btn-lg btn-primary" @else class="btn btn-default btn-lg active" @endif style="width: 200px;margin: 0 60px 0 150px;">{{__('进行中')}}</a>
+    <a href="{{ route('showProjectProcessChart').'?type=finish' }}" type="button" @if($request->query('type') == 'finish') class="btn btn-default btn-lg btn-primary" @else class="btn btn-default btn-lg active" @endif style="width: 200px;">{{__('已结束')}}</a>
+@endsection
 @section('content')
-
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding: 0 0 0 0;">
         <div class="gantt"></div>
 
     </div>
@@ -25,7 +29,7 @@
                 minScale: "weeks",
                 months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
                 dow: ['日', '一', '二', '三', '四', '五', '六'],
-                itemsPerPage: 29,
+                itemsPerPage: 31,
                 scrollToToday: true,
                 useCookie: false,
                 waitText: "正在加载图表......",

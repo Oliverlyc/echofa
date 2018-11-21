@@ -321,8 +321,9 @@
                 /* Left panel */
                 var ganttLeftPanel = $('<div class="leftPanel"/>')
                     .append($('<div class="row spacer"/>')
-                        .css("height", tools.getCellSize() * element.headerRows));
-
+                        .css("height", tools.getCellSize() * (element.headerRows-1)));
+                ganttLeftPanel.append($('<div class="row name row0">项目名称</div>').css({'height':tools.getCellSize(),'border-bottom':'1px solid #DDD','text-align':'center'}));
+                ganttLeftPanel.append($('<div class="row desc row0">截止时间</div>').css({'height':tools.getCellSize(),'border-bottom':'1px solid #DDD','text-align':'center'}));
                 var entries = [];
                 $.each(element.data, function (i, entry) {
                     if (i >= element.pageNum * settings.itemsPerPage &&

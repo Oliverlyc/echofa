@@ -1,7 +1,9 @@
 .gantt {
     width: 100%;
-    margin: 20px auto;
-    border: 14px solid #ddd;
+    margin: auto;
+    /*margin: 20px auto;*/
+    border: 1px solid #ddd;
+    /*border: 14px solid #ddd;*/
     position: relative;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -70,11 +72,18 @@
 .fn-gantt .leftPanel .row {
     border-bottom: 1px solid #DDD;
 }
-.fn-gantt .leftPanel .name, .fn-gantt .leftPanel .desc {
+.fn-gantt .leftPanel .name {
     float: left;
     height: 24px;
-    width: 50%;
+    width: 60%;
     background-color: #f6f6f6;
+}
+.fn-gantt .leftPanel .desc {
+    float: left;
+    height: 24px;
+    width: 40%;
+    background-color: #f6f6f6;
+    border-left:1px solid #DDD;
 }
 
 .fn-gantt .leftPanel .name {
@@ -401,6 +410,7 @@
 
 .fn-gantt-loader {
     position: absolute;
+    margin-top:120px;
     width: 100%;
     height: 100%;
     left: 0;

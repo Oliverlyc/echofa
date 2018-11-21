@@ -15,19 +15,20 @@ class Project extends Model
       'uid', 'ProjectsName', 'flowname', 'ModifyDatetime', 'sort', 'Amount'
     ];
 
-    public function getProjectNameList($hid = null)
+
+    public function getProjectNameList($type = 0,$hid = null)
     {
         $projectNameList = [];
         if($hid){
-            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime','FinishFly')->where('ID',$hid)->get();
+            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName' ,'CorpName', 'BeginDatetime', 'EndDatetime','FinishFly')->where('ID',$hid)->get();
         }else{
-            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName', 'BeginDatetime', 'EndDatetime', 'FinishFly')->orderBy('BeginDatetime','desc')->get();
+            $projectNameListByDB = DB::table('m_projects_h')->select('ID', 'ProjectsName' ,'CorpName', 'BeginDatetime', 'EndDatetime', 'FinishFly')->where('FinishFly',$type)->orderBy('BeginDatetime','desc')->get();
 
         }
         foreach ($projectNameListByDB as $item){
             $projectNameList[$item->ID] =  [
                 'hid' => $item->ID,
-                'ProjectName' => $item->ProjectsName,
+                'ProjectName' => $item->CorpName.$item->ProjectsName,
                 'BeginDatetime' => $item->BeginDatetime,
                 'EndDatetime' => $item->EndDatetime,
                 'finish' => $item->FinishFly ==null ? 0:$item->FinishFly,
@@ -37,7 +38,14 @@ class Project extends Model
         }
         return $projectNameList;
     }
-
+    public function getProjectHid($type)
+    {
+        return DB::table('m_projects_h')->select('ID')->where('FinishFly',$type)->get()->map(function($item){
+            return [
+                'hid' => $item->ID
+            ];
+        });
+    }
     public function getProcessNameList()
     {
         $processes = [];
@@ -54,16 +62,18 @@ class Project extends Model
         return $processes;
     }
 
-    public function getProjectProcessList($hid = null)
+    public function getProjectProcessList($type = 0,$hid = null)
     {
+        $projectHidList = $this->getProjectHid($type);
         if(!$hid){
-            return  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime', 'Amount', 'Nextsort')->whereNotNull('ModifyDatetime')->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
+            return  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime', 'Amount', 'Nextsort', 'NextPlanDate')->whereNotNull('ModifyDatetime')->whereIn('hid',$projectHidList)->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
                 return [
                     'hid' => $item->hid,
                     'sort' => $item->sort,
                     'processStartTime' =>  strtotime($item->ModifyDatetime),
                     'cost' => $item->Amount,
-                    'nextSort' =>  $item->Nextsort
+                    'nextSort' =>  $item->Nextsort,
+                    'nextSortDays' => $item->NextPlanDate
                 ];
             });
         }else{
