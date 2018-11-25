@@ -7,11 +7,16 @@ use App\Project;
 
 class ProjectCostController extends Controller
 {
-    public function getProjectCost(Project $project,$hid = null)
+    public $type = [
+        'processing' => 0,
+        'finish' => 1
+    ];
+
+    public function getProjectCost(Project $project,$hid = null, $type)
     {
-        $projectList = $project->getProjectNameList($hid);
+        $projectList = $project->getProjectNameList($type, $hid);
         $processNameList = $project->getProcessNameList();
-        $projectProcessList = $project->getProjectProcessList($hid);
+        $projectProcessList = $project->getProjectProcessList($type, $hid);
         foreach ($projectProcessList as $process){
             $process['flowname'] = $processNameList[$process['sort']]['flowname'];
             $projectList[$process['hid']]['process'][$process['sort']] = $process;
@@ -19,23 +24,11 @@ class ProjectCostController extends Controller
         return $projectList;
     }
 
-    public function getProjectCostTable(Project $project,$hid = null)
+    public function getProjectCostTable(Project $project, $hid = null, Request $request)
     {
-        $projectList = $this->getProjectCost($project, $hid);
-        foreach($projectList as $hid=>$project){
-            $table = \Lava::DataTable();
-
-            $table->addStringColumn('工序')
-                ->addNumberColumn('费用');
-            foreach($project['process'] as $process){
-                $table->addRow([$process['flowname'], $process['cost']]);
-            }
-            \Lava::TableChart('CostTable'.$hid, $table,[
-                'height' => count($project['process'])*70,
-                'width' => '100%',
-                'showRowNumber' => false,
-            ]);
-        }
+        $type= $request->query('type') ?? 'processing';
+        $type = $this->type[$type];
+        $projectList = $this->getProjectCost($project, $hid, $type);
         return view('echofa.projectCost',['projectList' => $projectList]);
 
     }

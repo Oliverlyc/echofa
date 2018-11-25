@@ -275,7 +275,8 @@
 
 .fn-gantt .navigate .nav-slider-content {
     text-align: left;
-    width: 160px;
+    width: 600px;
+    /*width: 160px;*/
     height: 20px;
     display: inline-block;
     margin: 0 10px;
@@ -287,8 +288,10 @@
 }
 
 .fn-gantt .navigate .nav-slider-bar {
-    width: 155px;
-    height: 6px;
+    width: 595px;
+    /*width: 155px;*/
+    height: 10px;
+    /*height: 6px;*/
     background-color: #838688;
     margin: 8px 0 0 0;
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6) inset;
@@ -300,11 +303,14 @@
 }
 
 .fn-gantt .navigate .nav-slider-button {
-    width: 17px;
+    width: 35px;
+    /*width: 17px;*/
     height: 60px;
     background: url(../img/slider_handle.png) center center no-repeat;
+    background-size:35px 39px;
     left: 0;
-    top: 0;
+    top: 5px;
+    /*top: 0;*/
     margin: -26px 0 0 0;
     cursor: pointer;
 }

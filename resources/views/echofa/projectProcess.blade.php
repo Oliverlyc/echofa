@@ -7,7 +7,6 @@
 @section('content')
     <div class="container-fluid" style="padding: 0 0 0 0;">
         <div class="gantt"></div>
-
     </div>
     <script>
         $(function () {
