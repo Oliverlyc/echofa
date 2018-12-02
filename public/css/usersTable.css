@@ -3,20 +3,14 @@ html{
 }
 body{
     height: 100%;
-    background-image: url("../img/gysj.jpg");
+    background-image: url("../img/usersTableBG.jpg");
     background-repeat:no-repeat;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
     background-attachment:fixed
 }
-.index-body{
-    margin-top: 15%;
-}
 .caret{
     color: rgb(242, 153, 0);
-}
-.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
-    background-color: rgb(142, 152, 185,0.3);
 }
 .navbar {
     background-color: rgb(142, 152, 185,0.3);
@@ -25,7 +19,12 @@ body{
 .navbar .container,.navbar-header{
     height:60px;
 }
-
+.navbar-header .navbar-brand:hover{
+    color:white;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
+    background-color: rgb(142, 152, 185,0.3);
+}
 .navbar .navbar-header a{
     color: #FFFFFF;
     font-family: '微软雅黑';
@@ -33,40 +32,7 @@ body{
     letter-spacing:2.8px;
     padding-left:2.8px;
 }
-.btn-index{
-    background-color: rgb(142, 152, 185);
-    height:63px;
-    width: 490px;
-    color: #FFFFFF;
-    font-family: '微软雅黑';
-    font-size:24px;
-    letter-spacing: 3.84px;
-    border-radius:50px
-}
-.btn-index:hover{
-    background-color: rgb(243, 152, 0);
-    color: #FFFFFF;
-}
-.div-btn-index{
-    margin-top:16px;
-}
-.p-index{
-    margin-top: 27px;
-}
-.p-index #p1{
-    font-size:32px;
-    color: #FFFFFF;
-    letter-spacing: 38.4px;
-    padding-left:38.4px;
-    font-family: '微软雅黑';
-}
-.p-index #p2{
-    font-size: 28px;
-    color: #FFFFFF;
-    letter-spacing:2.8px;
-    padding-left:2.8px;
-    font-family: '微软雅黑';
-}
+
 .user-table-header{
     background-color: white;
     height:55px;

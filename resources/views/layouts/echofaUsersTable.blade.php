@@ -21,7 +21,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
     {{--<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>--}}
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/usersTable.css') }}" rel="stylesheet">
 
 </head>
 <body >
