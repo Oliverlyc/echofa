@@ -64,9 +64,9 @@ class Project extends Model
 
     public function getProjectProcessList($type = 0,$hid = null)
     {
-        $projectHidList = $this->getProjectHid($type);
+        $projectHidList = array_pluck($this->getProjectHid($type),'hid');
         if(!$hid){
-            return  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime', 'Amount', 'Nextsort', 'NextPlanDate')->whereNotNull('ModifyDatetime')->whereIn('hid',$projectHidList)->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
+                $modifyDatetimeIsNotNull =  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime', 'Amount', 'Nextsort', 'NextPlanDate')->whereRaw('ModifyDatetime is not null or Nextsort is not null')->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
                 return [
                     'hid' => $item->hid,
                     'sort' => $item->sort,
@@ -75,7 +75,11 @@ class Project extends Model
                     'nextSort' =>  $item->Nextsort,
                     'nextSortDays' => $item->NextPlanDate
                 ];
+            })->toArray();
+            $modifyDatetimeIsNotNull = array_where($modifyDatetimeIsNotNull, function($value, $key) use ($projectHidList){
+                if(in_array($value['hid'], $projectHidList)) return true;
             });
+            return $modifyDatetimeIsNotNull;
         }else{
             return  DB::table($this->table)->select('hid', 'sort', 'ModifyDatetime','Amount')->whereNotNull('ModifyDatetime')->where('hid',$hid)->orderBy('hid')->orderBy('ModifyDatetime')->get()->map(function($item){
                 return [

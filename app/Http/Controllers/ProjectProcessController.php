@@ -143,7 +143,6 @@ class ProjectProcessController extends Controller
             $process['flowname'] = $processNameList[$process['sort']]['flowname'];
             $projectList[$process['hid']]['process'][$process['sort']] = $process;
         }
-//        dd($projectList[29]['finish']);
 
         foreach($projectList as $hid=>$project) {
             $endSort = 0;
@@ -153,6 +152,7 @@ class ProjectProcessController extends Controller
                 $endProcess = array_last($project['process']);
                 $endSort = $endProcess['sort'];
                 $nextSort = $endProcess['nextSort'];
+
                 foreach ($project['process'] as $sort=>$process){
 
                     $nextProcessStartTime = next($project['process'])['processStartTime'];
@@ -170,15 +170,25 @@ class ProjectProcessController extends Controller
                         }
                     }
                 }
-                if($project['finish'] == 1 ){
+
+                if($project['finish'] === 1 ){
                     $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+2 day",$project['process'][$endSort]['processStartTime']);
-                }elseif ($nextSort  && $project['finish'] != 1) {
+                }elseif ($nextSort !== null  && $project['finish'] != 1 && count($project['process']) !== 1) {
+
                     $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("-1 day");
                     $projectList[$hid]['nextProcess'] = $processNameList[$nextSort];
                     $projectList[$hid]['nextProcess']['processStartTime'] = time();
                     $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+".$endProcess["nextSortDays"]." day");
                     $projectList[$hid]['nextProcess']['hid'] = $hid;
-                }else{
+                }
+                elseif($nextSort !== null  && $project['finish'] != 1 && count($project['process']) === 1){
+                    $projectList[$hid]['process'] = [];
+                    $projectList[$hid]['nextProcess']  = $processNameList[$nextSort];
+                    $projectList[$hid]['nextProcess']['processStartTime'] = time();
+                    $projectList[$hid]['nextProcess']['processEndTime'] = strtotime("+".$endProcess["nextSortDays"]." day");
+                    $projectList[$hid]['nextProcess']['hid'] = $hid;
+                }
+                else{
                     $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+2 day",$project['process'][$endSort]['processStartTime']);
                 }
 
