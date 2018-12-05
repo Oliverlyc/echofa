@@ -734,7 +734,7 @@
                                 monthArr.push(
                                     '<div class="row month" style="width:' +
                                     tools.getCellSize() * scaleUnitsThisMonth*2 +
-                                    'px;"><div class="fn-label">' +
+                                    'px;"><div class="fn-label">' + year +'年'+
                                     settings.months[month] +
                                     '</div></div>');
                                 month = rday.getMonth();
