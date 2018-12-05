@@ -78,6 +78,15 @@
     width: 60%;
     background-color: #f6f6f6;
 }
+
+.fn-gantt .leftPanel .name .fn-label a{
+    color: #44454e;
+}
+
+.fn-gantt .leftPanel .desc .fn-label {
+    color: #44454e;
+}
+
 .fn-gantt .leftPanel .desc {
     float: left;
     height: 24px;
@@ -86,7 +95,7 @@
     border-left:1px solid #DDD;
 }
 
-.fn-gantt .leftPanel .name {
+.fn-gantt .leftPanel .name, .desc {
     font-weight: bold;
 }
 
@@ -97,7 +106,17 @@
 .fn-gantt .leftPanel .spacer {
     background-color: #f6f6f6;
     width: 100%;
+
+
 }
+
+.fn-gantt .leftPanel .row.spacer p{
+    margin-top: 12px;
+    vertical-align: middle;
+    text-align: center;
+    color:white;
+}
+
 
 
 
@@ -144,13 +163,20 @@
 }
 
 .fn-gantt .sa, .fn-gantt .sn {
-    color: #939496;
+    /*color: #939496;*/
+    color: #959595;
+    font-family: 微软雅黑;
     background-color: #f5f5f5;
+    font-weight: bold;
+    font-size: 14px ;
     text-align: center;
 }
 
 .fn-gantt .wd {
     background-color: #f6f6f6;
+    font-weight: bold;
+    font-size: 14px ;
+    color: #44454e;
     text-align: center;
 }
 
@@ -162,6 +188,7 @@
 .fn-gantt .today {
     background-color: #fff8da;
     height: 24px;
+    font-size: 14px ;
     font-weight: bold;
     text-align: center;
 }
@@ -172,10 +199,14 @@
     border-right: 1px solid #DDD;
     border-bottom: 1px solid #DDD;
     height: 24px;
-    background-color: #f6f6f6;
+    /*background-color: #f6f6f6;*/
+    background-color: #676b8b;
     font-weight: bold;
-    font-size: 11px;
-    color: #484a4d;
+    font-size: 14px;
+    /*color: #484a4d;*/
+    letter-spacing: 3px;
+    color: white;
+    font-family: '微软雅黑';
     text-shadow: 0 1px 0 rgba(255,255,255,0.75);
     text-align: center;
 }
@@ -227,18 +258,44 @@
     color: #78436D !important;
 }
 
-.fn-gantt .ganttGreen {
-    background-color: #D8EDA3;
+.fn-gantt .ganttNextProcess {
+    border:1px solid black;
+    border-radius: 50px;
+    /*background-color: #959595;*/
+    background-image: url('../img/nextprocessbg.png');
 }
-.fn-gantt .ganttGreen .fn-label {
-    color: #778461 !important;
+.fn-gantt .ganttNextProcess .fn-label {
+    font-family: '微软雅黑';
+    color: white !important;
 }
 
 .fn-gantt .ganttOrange {
-    background-color: #FCD29A;
+    /*background-color: #FCD29A;*/
+    border:1px solid #F39800;
+    border-radius: 50px;
+    background-color: #F39800;
 }
+
+.fn-gantt .ganttBlue {
+    border:1px solid #676b8b;
+    border-radius: 50px;
+    background-color: #676b8b;
+}
+
+.fn-gantt .ganttBlue .fn-label {
+    font-family: '微软雅黑';
+    color: white !important;
+}
+
+/*.fn-gantt .ganttOrange .fn-label {*/
+    /*color: #714715 !important;*/
+/*}*/
+
 .fn-gantt .ganttOrange .fn-label {
-    color: #714715 !important;
+    font-family: '微软雅黑';
+    border-radius: 50px;
+    letter-spacing: 1px;
+    color: white !important;
 }
 
 
@@ -275,7 +332,7 @@
 
 .fn-gantt .navigate .nav-slider-content {
     text-align: left;
-    width: 600px;
+    width: 800px;
     /*width: 160px;*/
     height: 20px;
     display: inline-block;
@@ -288,7 +345,7 @@
 }
 
 .fn-gantt .navigate .nav-slider-bar {
-    width: 595px;
+    width: 795px;
     /*width: 155px;*/
     height: 10px;
     /*height: 6px;*/
@@ -307,7 +364,7 @@
     /*width: 17px;*/
     height: 60px;
     background: url(../img/slider_handle.png) center center no-repeat;
-    background-size:35px 39px;
+    background-size:40px 48px;
     left: 0;
     top: 5px;
     /*top: 0;*/

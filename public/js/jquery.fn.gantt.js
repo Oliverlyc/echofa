@@ -320,10 +320,10 @@
             leftPanel: function (element) {
                 /* Left panel */
                 var ganttLeftPanel = $('<div class="leftPanel"/>')
-                    .append($('<div class="row spacer"/>')
-                        .css("height", tools.getCellSize() * (element.headerRows-1)));
-                ganttLeftPanel.append($('<div class="row name row0">项目名称</div>').css({'height':tools.getCellSize(),'border-bottom':'1px solid #DDD','text-align':'center'}));
-                ganttLeftPanel.append($('<div class="row desc row0">截止时间</div>').css({'height':tools.getCellSize(),'border-bottom':'1px solid #DDD','text-align':'center'}));
+                    .append($('<div class="row spacer"><p>项目进度</p></div>')
+                        .css({"height": tools.getCellSize() * (element.headerRows-1), "background-color": "#8e99b9"}));
+                ganttLeftPanel.append($('<div class="row name row0"><a class="fn-label" href="">项目名称</a></div>').css({'height':tools.getCellSize(),'border-bottom':'1px solid #DDD'}));
+                ganttLeftPanel.append($('<div class="row desc row0">项目截止日期</div>').css({'height':tools.getCellSize(),'border-bottom':'1px solid #DDD','text-align':'center'}));
                 var entries = [];
                 $.each(element.data, function (i, entry) {
                     if (i >= element.pageNum * settings.itemsPerPage &&
@@ -762,24 +762,24 @@
                         } //for
 
                         // Last year
-                        yearArr.push(
-                            '<div class="row year" style="width: ' +
-                            tools.getCellSize() * scaleUnitsThisYear *2+ 'px;"><div class="fn-label">' +
-                            year +
-                            '</div></div>');
+                        // yearArr.push(
+                        //     '<div class="row year" style="width: ' +
+                        //     tools.getCellSize() * scaleUnitsThisYear *2+ 'px;"><div class="fn-label">' +
+                        //     year +
+                        //     '</div></div>');
 
                         // Last month
                         monthArr.push(
                             '<div class="row month" style="width: ' +
                             tools.getCellSize() * scaleUnitsThisMonth *2+ 'px"><div class="fn-label">' +
-                            settings.months[month] +
+                            + year + '年' +settings.months[month] +
                             '</div></div>');
 
                         dataPanel = core.dataPanel(element, dataPanelWidth);
 
                         // Append panel elements
                         dataPanel.append(
-                            $row.clone().html(yearArr.join("")),
+                            // $row.clone().html(yearArr.join("")),
                             $row.clone().html(monthArr.join("")),
                             $row.clone().html(dayArr.join("")),
                             $row.clone().html(dowArr.join(""))
@@ -1153,7 +1153,7 @@
                                     topEl = $(element).find("#rowheader" + i);
                                     top = cellWidth * 4 + barOffset + topEl.data("offset");
                                     _bar.css({
-                                        top: top,
+                                        top: top-24,
                                         left: Math.floor(cFrom),
                                         width: dp + '%'
                                     });
@@ -1742,7 +1742,8 @@
                 case "days":
                 /* falls through */
                 default:
-                    this.headerRows = 4;
+                    // this.headerRows = 4;
+                    this.headerRows = 3;
                     this.scaleStep = 13;
             }
 

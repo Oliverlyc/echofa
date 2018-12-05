@@ -207,8 +207,8 @@ class ProjectProcessController extends Controller
     public function format($projectList)
     {
         $color = [
-            true => 'ganttRed',
-            false => null
+            true => 'ganttOrange',
+            false => 'ganttBlue'
         ];
         $str = "[";
         foreach ($projectList as $hid => $project){
@@ -228,7 +228,7 @@ class ProjectProcessController extends Controller
                 $str .= "{from:".$project['nextProcess']['processStartTime'].'000'.
                     ",to:".$project['nextProcess']['processEndTime'].'000'.
                     ",label:'".$project['nextProcess']['flowname'].
-                    "',customClass: 'ganttGreen'},";
+                    "',customClass: 'ganttNextProcess'},";
             }
             $str .= "],},";
         }

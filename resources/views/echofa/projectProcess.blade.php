@@ -1,8 +1,8 @@
 @inject('request','Illuminate\Http\Request')
 @extends('layouts.echofa')
 @section('ganttBtn')
-    <a href="{{ route('showProjectProcessChart') }}" type="button " @if(!$request->query('type')||$request->query('type') == 'processing') class="btn btn-default btn-lg btn-primary" @else class="btn btn-default btn-lg active" @endif style="width: 200px;margin: 0 60px 0 150px;">{{__('进行中')}}</a>
-    <a href="{{ route('showProjectProcessChart').'?type=finish' }}" type="button" @if($request->query('type') == 'finish') class="btn btn-default btn-lg btn-primary" @else class="btn btn-default btn-lg active" @endif style="width: 200px;">{{__('已结束')}}</a>
+    <a href="{{ route('showProjectProcessChart') }}" type="button " @if(!$request->query('type')||$request->query('type') == 'processing') class="btn btn-default btn-lg btn-active" @else class="btn btn-default btn-lg btn-standby active" @endif style="width: 200px;margin: 8px 60px 0 150px">{{__('进行中')}}</a>
+    <a href="{{ route('showProjectProcessChart').'?type=finish' }}" type="button" @if($request->query('type') == 'finish') class="btn btn-default btn-lg btn-active " @else class="btn btn-default btn-lg btn-standby active" @endif style="width: 200px;margin-top: 8px;">{{__('已完成')}}</a>
 @endsection
 @section('content')
     <div class="container-fluid" style="padding: 0 0 0 0;">
@@ -26,7 +26,7 @@
                 scale: "days",
                 maxScale: "months",
                 minScale: "weeks",
-                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '2月'],
                 dow: ['日', '一', '二', '三', '四', '五', '六'],
                 itemsPerPage: 31,
                 scrollToToday: true,

@@ -25,7 +25,20 @@ body{
 .navbar .container,.navbar-header{
     height:60px;
 }
-
+.navbar .container .collapse .ganttBtn .btn-active{
+    background-color: #676b8b;
+    color:white;
+    border: none;
+    border-radius:50px;
+    font-family:'微软雅黑';
+}
+.navbar .container .collapse .ganttBtn .btn-standby{
+    background-color: #f3f3f3;
+    color:black;
+    border: none;
+    border-radius:50px;
+    font-family:'微软雅黑';
+}
 .navbar .navbar-header a{
     color: #FFFFFF;
     font-family: '微软雅黑';
@@ -100,3 +113,4 @@ body{
 .table-striped  tbody tr:nth-child(even){
     background-color: #dadadc;
 }
+

@@ -50,7 +50,7 @@
                 {{--<ul class="nav navbar-nav">--}}
 
                 {{--</ul>--}}
-                <ul class="nav navbar-nav ">
+                <ul class="nav navbar-nav ganttBtn ">
                         @yield('ganttBtn')
                 </ul>
 
