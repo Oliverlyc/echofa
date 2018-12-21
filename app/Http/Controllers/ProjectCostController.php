@@ -40,7 +40,7 @@ class ProjectCostController extends Controller
     {
         $type = $request->query('type') ?? 'processing';
         $data = $this->getProjectCost($project, $hid, $type);
-        $date = collect($data)->map(function($item, $index){
+        $inf = collect($data)->map(function($item, $index){
             $arr = [];
             $arr['项目名称'] = ['项目名称', $item['ProjectName']];
             foreach ($item['process'] as $sort => $process){
@@ -49,6 +49,6 @@ class ProjectCostController extends Controller
             $arr['总计'] = ['总计',$item['total']];
             return $arr;
         })->first();
-        return collect($date)->downloadExcel('inf.xls', null);
+        return collect($inf)->downloadExcel($inf['项目名称'][1].'.xls', null);
     }
 }
