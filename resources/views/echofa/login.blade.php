@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-4">
-                <img src="../img/logo_1.png" alt="">
+            <div class="col-md-12 " style="text-align: center">
+                <img src="../img/logo_1.png" style="width: 600px;height: 180px;" alt="">
             </div>
         </div>
         <div class="row">
