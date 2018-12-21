@@ -32,6 +32,7 @@ class Project extends Model
                 'BeginDatetime' => $item->BeginDatetime,
                 'EndDatetime' => $item->EndDatetime,
                 'finish' => $item->FinishFly ==null ? 0:$item->FinishFly,
+                'total' => 0,
 //                'EndDatetime' => (Carbon::createFromTimestampMs($item->EndDatetime.'.0000','Asia/Shanghai')->toTimeString()),
                 'process' => [],
             ];

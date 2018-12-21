@@ -27,7 +27,7 @@ Route::prefix('/echofa')->group(function(){
         Route::get('/project_process_chart' , 'ProjectProcessController@getGanttChart')->name('showProjectProcessChart');
         Route::get('/userinfo', 'EchofaUserController@showUserInfoTable')->name('showUserInfoTable');
         Route::get('/project_cost/{hid?}', 'ProjectCostController@getProjectCostTable')->name('showProjectCostTable');
-//        Route::get('/get_process_cost_list')
+        Route::get('/get_process_cost_list/{hid?}', 'ProjectCostController@getProcessCostList')->name('getProcessCostList');
     });
 });
 Route::get('/home', 'HomeController@index')->name('home');

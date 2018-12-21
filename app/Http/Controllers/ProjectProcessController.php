@@ -191,7 +191,7 @@ class ProjectProcessController extends Controller
                     $projectList[$hid]['nextProcess']['hid'] = $hid;
                 }
                 else{
-                    $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+2 day",$project['process'][$endSort]['processStartTime']);
+                    $projectList[$hid]['process'][$endSort]['processEndTime'] = strtotime("+0 day",$project['process'][$endSort]['processStartTime']);
                 }
 
 
